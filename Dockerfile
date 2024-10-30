@@ -1,0 +1,1 @@
+FROM docker.servicewall.cn/servicewall/nginx_decryptor
