@@ -31,6 +31,11 @@ docker_tar_arm64: makesure_docker_builder
 	docker buildx build --platform linux/arm64 -o type=docker,dest=- \
 		-t $(DOCKER_IMAGE_NAME) --build-arg JDK8_VERSION=arm64 --build-arg GIT_HASH=$(GIT_HASH) . | xz -T $(XZ_THREAD) > $(TAR_NAME_PREFIX)_arm64.docker.txz
 
+sync_origin: makesure_docker_builder
+	docker buildx build --platform linux/amd64,linux/arm64 --push \
+		-f origin.Dockerfile \
+		-t docker.servicewall.cn/origin/nginx_decryptor:latest --build-arg ORIGIN_IMG_TAG=$(ORIGIN_IMG_TAG) .
+
 gen_upgrade_tarball: clean docker_tar_amd64 docker_tar_arm64
 	@set -e; \
 		export SW_META_VERSION=1.0; \

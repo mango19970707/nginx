@@ -1,1 +1,1 @@
-FROM docker.servicewall.cn/servicewall/nginx_decryptor
+FROM docker.servicewall.cn/origin/nginx_decryptor:latest
